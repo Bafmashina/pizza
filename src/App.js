@@ -9,6 +9,13 @@ import { PizzaBlock } from "./components/PizzaBlock";
 import pizzas from "./assets/pizzas.json";
 
 function App() {
+  fetch('https://6405853940597b65de392e56.mockapi.io/item').then((res) => {
+    return res.json()
+  })
+  .then((arr) => {
+    console.log(arr)
+  })
+
   return (
     <div className="wrapper">
       <Header />
