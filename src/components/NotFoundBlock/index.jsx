@@ -6,7 +6,7 @@ const NotFoundBlock = () => {
   return (
     <div className={styles.root}>
       <h1>
-        <span>😕</span>s
+        <span>😕</span>
         <br />
         Ничего не найдено
       </h1>
