@@ -1,0 +1,28 @@
+.root {
+    position: relative;
+    left: -150px;
+}
+
+.input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 20px;
+    width: 350px;
+    padding-left: 45px;
+    border-radius: 20px;
+    font-size: 15px;
+    transition: all 0.25s ease-in-out; // раскрытие окна поиска
+
+    &:focus {
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        width: 425px;
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
