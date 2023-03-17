@@ -17,4 +17,4 @@ const NotFoundBlock = () => {
   );
 };
 
-export { NotFoundBlock };
+export default NotFoundBlock ;

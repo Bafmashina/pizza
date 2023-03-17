@@ -68,4 +68,4 @@ function PizzaBlock({ title, price, imageUrl, sizes, types }) {
   );
 }
 
-export { PizzaBlock };
+export default PizzaBlock ;

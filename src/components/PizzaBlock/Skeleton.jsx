@@ -18,4 +18,4 @@ const Skeleton = () => (
   </ContentLoader>
 )
 
-export {Skeleton}
+export default Skeleton

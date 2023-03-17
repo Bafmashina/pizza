@@ -1,16 +1,17 @@
 import React from "react";
 
-import { Categories } from "../components/Categories";
-import { Sort } from "../components/Sort";
-import { PizzaBlock } from "../components/PizzaBlock/index";
-import { Skeleton } from "../components/PizzaBlock/Skeleton";
-import { Pagination } from "../components/Pagination";
+import  Categories  from "../components/Categories";
+import  Sort  from "../components/Sort";
+import  PizzaBlock  from "../components/PizzaBlock/index";
+import  Skeleton  from "../components/PizzaBlock/Skeleton";
+import Pagination  from "../components/Pagination";
 
-const Home = ({ searchValue }) => {
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
-  const [sortType, setSortType] = React.useState({
+export const Home = ({ searchValue }) => {
+  const [items, setItems] = React.useState([]); // массив пицц
+  const [isLoading, setIsLoading] = React.useState(true); // загрузка
+  const [categoryId, setCategoryId] = React.useState(0); // категории
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [sortType, setSortType] = React.useState({ // сортировка
     name: "популярности",
     sortProperty: "rating",
   });
@@ -21,11 +22,11 @@ const Home = ({ searchValue }) => {
     // переменные для запросаов с бэка
     const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sortType.sortProperty.replace("-", "");
-    const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : ''
 
     fetch(
-      `https://6405853940597b65de392e56.mockapi.io/item?${category}&sortBy=${sortBy}&order=${order}${search}`
+      `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -33,7 +34,7 @@ const Home = ({ searchValue }) => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
   // переменные для рендера пицц
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
@@ -52,9 +53,9 @@ const Home = ({ searchValue }) => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-    <Pagination />
+    <Pagination onChangePage={(num) => setCurrentPage(num)}/>
     </div>
   );
 };
 
-export { Home };
+export default Home ;

@@ -2,7 +2,8 @@ import React from "react";
 
 import styles from "./Search.module.scss";
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = ({searchValue, setSearchValue}) => {
+
   return (
     <div className={styles.root}>
       {/* Иконка поиска */}
@@ -187,4 +188,4 @@ const Search = ({ searchValue, setSearchValue }) => {
   );
 };
 
-export { Search };
+export default Search ;

@@ -28,4 +28,4 @@ function Categories({value, onChangeCategory}) {
   );
 }
 
-export { Categories };
+export default Categories ;

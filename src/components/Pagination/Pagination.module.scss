@@ -24,11 +24,11 @@
   }
 
   :global {
-    a {
-        .selected {
-            background-color: #fe5f1e;
-            color: #fff;
-        }
+    .selected {
+      a {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
     }
   }
 }

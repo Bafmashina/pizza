@@ -2,7 +2,7 @@ import logoSvg from '../assets/img/pizza-logo.svg'
 
 import {Link} from 'react-router-dom'
 
-import {Search} from './Search/index'
+import Search from './Search/index'
 
 function Header({searchValue, setSearchValue}) {
     return (
@@ -60,4 +60,4 @@ function Header({searchValue, setSearchValue}) {
     );
   }
 
-export {Header}
+export default Header

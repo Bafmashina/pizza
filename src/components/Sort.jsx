@@ -53,4 +53,4 @@ function Sort({ value, onChangeSort }) {
   );
 }
 
-export { Sort };
+export default Sort ;
