@@ -12,7 +12,7 @@ const Search = () => {
       {/* Иконка поиска */}
       <svg
         className={styles.icon}
-        enable-background="new 0 0 32 32"
+        enableBackground="new 0 0 32 32"
         height="32px"
         id="_x3C_Layer_x3E_"
         version="1.1"
@@ -46,9 +46,9 @@ const Search = () => {
                 fill="none"
                 id="XMLID_4094_"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
                 x1="23.43"
                 x2="21.214"
                 y1="23.401"
@@ -59,9 +59,9 @@ const Search = () => {
                 fill="none"
                 id="XMLID_4093_"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <circle
                 cx="13"
@@ -70,36 +70,36 @@ const Search = () => {
                 id="XMLID_4092_"
                 r="11.5"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M12,14.521h2c0,0.55-0.45,1-1,1S12,15.07,12,14.521z"
                 fill="none"
                 id="XMLID_4091_"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M17.5,13c0.27,0,0.5,0.23,0.5,0.5S17.77,14,17.5,14S17,13.77,17,13.5S17.23,13,17.5,13z"
                 fill="none"
                 id="XMLID_4090_"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M8.5,13C8.77,13,9,13.23,9,13.5S8.77,14,8.5,14S8,13.77,8,13.5S8.23,13,8.5,13z"
                 fill="none"
                 id="XMLID_4089_"
                 stroke="#455A64"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
             </g>
             <g id="XMLID_3004_">
@@ -107,9 +107,9 @@ const Search = () => {
                 fill="none"
                 id="XMLID_4087_"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
                 x1="23.43"
                 x2="21.214"
                 y1="23.401"
@@ -120,9 +120,9 @@ const Search = () => {
                 fill="none"
                 id="XMLID_3009_"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <circle
                 cx="13"
@@ -131,36 +131,36 @@ const Search = () => {
                 id="XMLID_3008_"
                 r="11.5"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M12,14.521h2c0,0.55-0.45,1-1,1S12,15.07,12,14.521z"
                 fill="none"
                 id="XMLID_3007_"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M17.5,13c0.27,0,0.5,0.23,0.5,0.5S17.77,14,17.5,14S17,13.77,17,13.5S17.23,13,17.5,13z"
                 fill="none"
                 id="XMLID_3006_"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
               <path
                 d="     M8.5,13C8.77,13,9,13.23,9,13.5S8.77,14,8.5,14S8,13.77,8,13.5S8.23,13,8.5,13z"
                 fill="none"
                 id="XMLID_3005_"
                 stroke="#263238"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeMiterlimit="10"
               />
             </g>
           </g>
