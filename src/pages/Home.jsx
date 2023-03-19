@@ -5,8 +5,11 @@ import  Sort  from "../components/Sort";
 import  PizzaBlock  from "../components/PizzaBlock/index";
 import  Skeleton  from "../components/PizzaBlock/Skeleton";
 import Pagination  from "../components/Pagination";
+import { SearchContext } from "../App";
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
+  const {searchValue} = React.useContext(SearchContext) // контекст
+
   const [items, setItems] = React.useState([]); // массив пицц
   const [isLoading, setIsLoading] = React.useState(true); // загрузка
   const [categoryId, setCategoryId] = React.useState(0); // категории
