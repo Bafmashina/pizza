@@ -12,19 +12,15 @@ import { SearchContext } from "../App";
 
 export const Home = () => {
   const dispatch = useDispatch()
-  const categoryId = useSelector((state) => state.filter.categoryId)
-
+  const {categoryId, sort} = useSelector((state) => state.filter)
+  const sortType = sort.sortProperty
+  
 
   const {searchValue} = React.useContext(SearchContext) // контекст
 
   const [items, setItems] = React.useState([]); // массив пицц
   const [isLoading, setIsLoading] = React.useState(true); // загрузка
-  // const [categoryId, setCategoryId] = React.useState(0); // категории
   const [currentPage, setCurrentPage] = React.useState(1)
-  const [sortType, setSortType] = React.useState({ // сортировка
-    name: "популярности",
-    sortProperty: "rating",
-  });
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id))
@@ -34,13 +30,13 @@ export const Home = () => {
     setIsLoading(true);
 
     // переменные для запросаов с бэка
-    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
-    const sortBy = sortType.sortProperty.replace("-", "");
+    const order = sortType.includes("-") ? "asc" : "desc";
+    const sortBy = sortType.replace("-", "");
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : ''
 
     fetch(
-      `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=4${category}&sortBy=${sortBy}&order=${order}${search}`
+      `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -63,7 +59,7 @@ export const Home = () => {
           value={categoryId}
           onChangeCategory={onChangeCategory}
         />
-        <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
