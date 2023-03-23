@@ -3,9 +3,14 @@ import { SearchContext } from "../../App";
 
 import styles from "./Search.module.scss";
 
-
 const Search = () => {
-  const {searchValue, setSearchValue} = React.useContext(SearchContext)
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const inputRef = React.useRef();
+
+  const onClickClear = () => {
+    setSearchValue("");
+    inputRef.current.focus()
+  };
 
   return (
     <div className={styles.root}>
@@ -168,6 +173,7 @@ const Search = () => {
       </svg>
       {/* Поле поиска */}
       <input
+        ref={inputRef}
         value={searchValue}
         onChange={(event) => setSearchValue(event.target.value)}
         className={styles.input}
@@ -176,7 +182,7 @@ const Search = () => {
       {/* иконка Закрытие */}
       {searchValue && (
         <svg
-          onClick={() => setSearchValue('')}
+          onClick={onClickClear}
           className={styles.clearIcon}
           height="48"
           viewBox="0 0 48 48"
@@ -191,4 +197,4 @@ const Search = () => {
   );
 };
 
-export default Search ;
+export default Search;

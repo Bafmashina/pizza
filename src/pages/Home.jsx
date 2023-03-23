@@ -1,30 +1,31 @@
 import React from "react";
-import {useSelector, useDispatch} from 'react-redux' // redux хуки
+import axios from "axios";
 
-import {setCategoryId} from '../redux/slices/filterSlice' // redux store функция
+import { useSelector, useDispatch } from "react-redux"; // redux хуки
 
-import  Categories  from "../components/Categories";
-import  Sort  from "../components/Sort";
-import  PizzaBlock  from "../components/PizzaBlock/index";
-import  Skeleton  from "../components/PizzaBlock/Skeleton";
-import Pagination  from "../components/Pagination";
+import { setCategoryId } from "../redux/slices/filterSlice"; // redux store функция
+
+import Categories from "../components/Categories";
+import Sort from "../components/Sort";
+import PizzaBlock from "../components/PizzaBlock/index";
+import Skeleton from "../components/PizzaBlock/Skeleton";
+import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 
 export const Home = () => {
-  const dispatch = useDispatch()
-  const {categoryId, sort} = useSelector((state) => state.filter)
-  const sortType = sort.sortProperty
-  
+  const dispatch = useDispatch();
+  const { categoryId, sort } = useSelector((state) => state.filter);
+  const sortType = sort.sortProperty;
 
-  const {searchValue} = React.useContext(SearchContext) // контекст
+  const { searchValue } = React.useContext(SearchContext); // контекст
 
   const [items, setItems] = React.useState([]); // массив пицц
   const [isLoading, setIsLoading] = React.useState(true); // загрузка
-  const [currentPage, setCurrentPage] = React.useState(1)
+  const [currentPage, setCurrentPage] = React.useState(1);
 
   const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id))
-  }
+    dispatch(setCategoryId(id));
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -33,16 +34,17 @@ export const Home = () => {
     const order = sortType.includes("-") ? "asc" : "desc";
     const sortBy = sortType.replace("-", "");
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
-    const search = searchValue ? `&search=${searchValue}` : ''
+    const search = searchValue ? `&search=${searchValue}` : "";
 
-    fetch(
-      `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-    )
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);
+    axios
+      .get(
+        `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
@@ -55,17 +57,14 @@ export const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onChangeCategory={onChangeCategory}
-        />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzas}</div>
-    <Pagination onChangePage={(num) => setCurrentPage(num)}/>
+      <Pagination onChangePage={(num) => setCurrentPage(num)} />
     </div>
   );
 };
 
-export default Home ;
+export default Home;
