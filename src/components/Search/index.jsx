@@ -5,13 +5,13 @@ import { SearchContext } from "../../App";
 import styles from "./Search.module.scss";
 
 const Search = () => {
-  const [value, setValue] = React.useState('')
+  const [value, setValue] = React.useState("");
   const { setSearchValue } = React.useContext(SearchContext);
   const inputRef = React.useRef();
 
   const onClickClear = () => {
     setSearchValue("");
-    setValue('')
+    setValue("");
     inputRef.current.focus();
   };
 
@@ -23,9 +23,9 @@ const Search = () => {
   );
 
   const onChangeInput = (event) => {
-    setValue(event.target.value)
-    updateSearchValue(event.target.value)
-  }
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  };
 
   return (
     <div className={styles.root}>
