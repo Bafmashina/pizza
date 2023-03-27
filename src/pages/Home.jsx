@@ -1,11 +1,15 @@
 import React from "react";
 import axios from "axios";
-import qs from 'qs'
+import qs from "qs";
 
 import { useSelector, useDispatch } from "react-redux";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
-import { setCategoryId, setCurrentPage, setFilters } from "../redux/slices/filterSlice";
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from "../redux/slices/filterSlice";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -13,13 +17,17 @@ import PizzaBlock from "../components/PizzaBlock/index";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
-import {sortList} from '../components/Sort'
+import { sortList } from "../components/Sort";
 
 export const Home = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false)
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector(
+    (state) => state.filter
+  );
 
   const { searchValue } = React.useContext(SearchContext); // контекст
 
@@ -31,26 +39,10 @@ export const Home = () => {
   };
 
   const onChangePage = (number) => {
-    dispatch(setCurrentPage(number))
-  }
+    dispatch(setCurrentPage(number));
+  };
 
-  // Проверка на парсинг запроса
-  React.useEffect(() => {
-    if(window.location.search) {
-      const params = qs.parse(window.location.search.substring(1))
-      
-      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty)
-
-      dispatch(
-        setFilters({
-          ...params,
-          sort,
-        })
-      )
-    }
-  }, [])
-
-  React.useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
 
     // переменные для запросаов с бэка
@@ -67,20 +59,51 @@ export const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
+  };
 
-    window.scrollTo(0, 0);
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+   // Если изменили парамаетры и был первый рендр
+   React.useEffect(() => {
+    if(isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+  
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true
+  }, [categoryId, sort.sortProperty, currentPage]);
 
-  // Для парсинга ссылки 
+  // Если был первый рендр, то проверяем URL-параметры и сохраняем в redux
   React.useEffect(() => {
-    const queryString = qs.stringify({
-      sortProperty: sort.sortProperty,
-      categoryId,
-      currentPage,
-    })
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
 
-    navigate(`?${queryString}`)
-  }, [categoryId, sort.sortProperty, currentPage])
+      const sort = sortList.find(
+        (obj) => obj.sortProperty === params.sortProperty
+      );
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        })
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  // Если был первый рендор то запрашиваем пиццы
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   // переменные для рендера пицц
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
