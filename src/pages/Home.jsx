@@ -23,7 +23,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false)
+  const isMounted = React.useRef(false);
 
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
@@ -42,7 +42,7 @@ export const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
 
     // переменные для запросаов с бэка
@@ -51,28 +51,33 @@ export const Home = () => {
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+      );
+      setItems(res.data);
+    } catch (error) {
+      console.log(error);
+      alert("Ошибка при получении пицц");
+    } finally {
+      setIsLoading(false)
+    }
+
+    window.scrollTo(0, 0);
   };
 
-   // Если изменили парамаетры и был первый рендр
-   React.useEffect(() => {
-    if(isMounted.current) {
+  // Если изменили парамаетры и был первый рендр
+  React.useEffect(() => {
+    if (isMounted.current) {
       const queryString = qs.stringify({
         sortProperty: sort.sortProperty,
         categoryId,
         currentPage,
       });
-  
+
       navigate(`?${queryString}`);
     }
-    isMounted.current = true
+    isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
 
   // Если был первый рендр, то проверяем URL-параметры и сохраняем в redux
