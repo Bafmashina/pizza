@@ -18,6 +18,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 import { sortList } from "../components/Sort";
+import { setItems } from "../redux/slices/pizzaSlice";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -29,9 +30,9 @@ export const Home = () => {
     (state) => state.filter
   );
 
-  const { searchValue } = React.useContext(SearchContext); // контекст
+  const items = useSelector((state) => state.pizza.items)
 
-  const [items, setItems] = React.useState([]); // массив пицц
+  const { searchValue } = React.useContext(SearchContext); // контекст
   const [isLoading, setIsLoading] = React.useState(true); // загрузка
 
   const onChangeCategory = (id) => {
@@ -52,10 +53,10 @@ export const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     try {
-      const res = await axios.get(
+      const {data} = await axios.get(
         `https://6405853940597b65de392e56.mockapi.io/item?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
       );
-      setItems(res.data);
+      dispatch(setItems(data));
     } catch (error) {
       console.log(error);
       alert("Ошибка при получении пицц");
