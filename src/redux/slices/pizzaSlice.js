@@ -35,7 +35,7 @@ const pizzaSlice = createSlice({
         state.status = 'succes'
     },
     [fetchPizzas.rejected]: (state) => {
-        state.status = 'erroe'
+        state.status = 'error'
         state.items = []
     }, 
  }

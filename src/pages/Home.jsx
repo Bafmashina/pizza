@@ -18,7 +18,7 @@ import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { SearchContext } from "../App";
 import { sortList } from "../components/Sort";
-import {fetchPizzas} from "../redux/slices/pizzaSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ export const Home = () => {
     (state) => state.filter
   );
 
-  const {items, status} = useSelector((state) => state.pizza)
+  const { items, status } = useSelector((state) => state.pizza);
 
   const { searchValue } = React.useContext(SearchContext); // контекст
 
@@ -43,22 +43,21 @@ export const Home = () => {
   };
 
   const getPizzas = async () => {
-
     // переменные для запросаов с бэка
     const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const sortBy = sort.sortProperty.replace("-", "");
     const category = categoryId > 0 ? `&category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-      dispatch(
-        fetchPizzas({
+    dispatch(
+      fetchPizzas({
         order,
         sortBy,
         category,
         search,
         currentPage,
-      }),
-      );
+      })
+    );
 
     window.scrollTo(0, 0);
   };
@@ -100,9 +99,7 @@ export const Home = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
 
-   
-      getPizzas();
-   
+    getPizzas();
 
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
@@ -120,7 +117,18 @@ export const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
+      {status === "error" ? (
+        <div className="content__error-info">
+          <h2>
+            Произошла ошибка <icon>😕</icon>
+          </h2>
+          <p>К несчастью все питсы съели. Приходите позже спнциально для вас мы оставим парочку</p>
+        </div>
+      ) : (
+        <div className="content__items">
+          {status === "loading" ? skeletons : pizzas}
+        </div>
+      )}
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );

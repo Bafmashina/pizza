@@ -24,6 +24,22 @@ body {
 .content {
   padding: 40px 0;
 
+  &__error-info {
+    margin: 120px auto;
+    width: 600px;
+    text-align: center;
+
+    h2 {
+      font-size: 30px;
+      font-weight: 800;
+      padding: 20px;
+    }
+
+    p {
+      font-size: 24px;
+    }
+  }
+
   &__title {
     font-weight: 800;
     font-size: 38px;
