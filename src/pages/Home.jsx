@@ -1,11 +1,11 @@
 import React from "react";
-import axios from "axios";
 import qs from "qs";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
@@ -16,9 +16,8 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock/index";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
-import { SearchContext } from "../App";
 import { sortList } from "../components/Sort";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -26,13 +25,8 @@ export const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
-
-  const { items, status } = useSelector((state) => state.pizza);
-
-  const { searchValue } = React.useContext(SearchContext); // контекст
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { items, status } = useSelector(selectPizzaData);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -122,7 +116,10 @@ export const Home = () => {
           <h2>
             Произошла ошибка <icon>😕</icon>
           </h2>
-          <p>К несчастью все питсы съели. Приходите позже спнциально для вас мы оставим парочку</p>
+          <p>
+            К несчастью все питсы съели. Приходите позже спнциально для вас мы
+            оставим парочку
+          </p>
         </div>
       ) : (
         <div className="content__items">
