@@ -19,7 +19,7 @@ import Pagination from "../components/Pagination";
 import { sortList } from "../components/Sort";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
@@ -28,12 +28,12 @@ export const Home = () => {
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (index: number) => {
+    dispatch(setCategoryId(index));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
   const getPizzas = async () => {
@@ -44,6 +44,7 @@ export const Home = () => {
     const search = searchValue ? `&search=${searchValue}` : "";
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         order,
         sortBy,
@@ -99,7 +100,7 @@ export const Home = () => {
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   // переменные для рендера пицц
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -114,7 +115,7 @@ export const Home = () => {
       {status === "error" ? (
         <div className="content__error-info">
           <h2>
-            Произошла ошибка <icon>😕</icon>
+            Произошла ошибка <span>😕</span>
           </h2>
           <p>
             К несчастью все питсы съели. Приходите позже спнциально для вас мы
