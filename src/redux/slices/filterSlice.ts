@@ -7,7 +7,7 @@ export enum SortProp {
     TITLE = 'title',
 }
 
-type Sort = {
+export type Sort = {
     name: string
     sortProperty: SortProp,
 }
@@ -25,7 +25,7 @@ export interface FilterSliceState {
     currentPage: 1,
     sort: {
         name: "популярности",
-        sortProperty: SortProp.RATING,
+        sortProperty: SortProp.PRICE,
     },
 }
 

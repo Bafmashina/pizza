@@ -17,7 +17,11 @@ import PizzaBlock from "../components/PizzaBlock/index";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
 import { sortList } from "../components/Sort";
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
+import {
+  SearchPizzaParams,
+  fetchPizzas,
+  selectPizzaData,
+} from "../redux/slices/pizzaSlice";
 import { useAppDispatch } from "../redux/store";
 
 export const Home: React.FC = () => {
@@ -75,16 +79,18 @@ export const Home: React.FC = () => {
   // Если был первый рендр, то проверяем URL-параметры и сохраняем в redux
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
 
-      const sort = sortList.find(
-        (obj) => obj.sortProperty === params.sortProperty
-      );
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
       dispatch(
         setFilters({
-          ...params,
-          sort,
+          searchValue: params.search,
+          categoryId: Number(params.category),
+          currentPage: Number(params.currentPage),
+          sort: sort || sortList[0],
         })
       );
       isSearch.current = true;

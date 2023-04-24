@@ -18,7 +18,7 @@ const Categories: React.FC<CategoriesProps> = ({ value, onChangeCategory }) => {
       <ul>
         {categories.map((categoryName, index) => (
           <li
-            key={index}
+            key={index || 0}
             onClick={() => onChangeCategory(index)}
             className={value === index ? "active" : ""}
           >
