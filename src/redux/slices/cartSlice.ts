@@ -47,10 +47,12 @@ const cartSlice = createSlice({
       if(fiendItem) {
         fiendItem.count--
       }
+
+      state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter((obj) => obj.id !== action.payload); 
-      console.log(state)
+      state.totalPrice = state.items.reduce((sum, obj) => obj.price * obj.count + sum, 0)
     },
     clearItems(state) {
       state.items = [];
