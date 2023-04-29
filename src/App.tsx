@@ -4,8 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 
 import { MainLayout } from "./layouts/MainLayout";
-import "./scss/app.scss";
 import { FullPizza } from "./pages/FullPizza";
+import "./scss/app.scss";
 
 const Cart = React.lazy(() => import("./pages/Cart"));
 const NotFound = React.lazy(() => import("./pages/NotFound"))
